@@ -1,6 +1,6 @@
 ﻿namespace ActiveDirectory_Validate
 {
-    partial class Form1
+    partial class FrmValidarUsuario
     {
         /// <summary>
         /// Required designer variable.
@@ -108,7 +108,7 @@
             this.txtDominio.TabIndex = 5;
             this.txtDominio.Text = "GRUPOREYES.ORG";
             // 
-            // Form1
+            // FrmValidarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -123,9 +123,9 @@
             this.Controls.Add(this.txtUsuario);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Form1";
+            this.Name = "FrmValidarUsuario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Validar Usuario ActiveDirectory";
             this.ResumeLayout(false);
             this.PerformLayout();
 

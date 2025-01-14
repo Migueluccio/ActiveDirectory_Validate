@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ActiveDirectory_Validate
 {
-    public partial class Form1 : Form
+    public partial class FrmValidarUsuario : Form
     {
-        public Form1()
+        public FrmValidarUsuario()
         {
             InitializeComponent();
         }
