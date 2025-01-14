@@ -10,10 +10,17 @@ namespace ActiveDirectory_Validate
         {
             try
             {
+                bool valido = false;
+
                 using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
                 {
                     // Validate the credentials
-                    return pc.ValidateCredentials(username, password);
+                    valido = pc.ValidateCredentials(username, password);
+
+                    //If(valido)
+                    //Obtener Objeto que contenga Usuario, Personal, Sucursal de tengan relacion con el usuario AD validado
+
+                    return valido;
                 }
             }
             catch (Exception ex)
