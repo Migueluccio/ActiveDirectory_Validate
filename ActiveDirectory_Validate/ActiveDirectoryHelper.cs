@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 
 
@@ -30,6 +31,54 @@ namespace ActiveDirectory_Validate
                 //return false;
             }
         }
+
+        public static UserPrincipal GetUserInformation(string domain, string username, string password)
+        {
+            try
+            {
+                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain, username, password))
+                {
+                    UserPrincipal user = UserPrincipal.FindByIdentity(pc, username);
+                    return user;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener la información del usuario: " + ex.Message);
+                return null;
+            }
+        }
+
+        public static List<UserPrincipal> GetAllUsers(string domain, string username, string password)
+        {
+            List<UserPrincipal> users = new List<UserPrincipal>();
+
+            try
+            {
+                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain, username, password))
+                {
+                    UserPrincipal userPrincipal = new UserPrincipal(pc);
+                    using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
+                    {
+                        foreach (var result in searcher.FindAll())
+                        {
+                            UserPrincipal user = result as UserPrincipal;
+                            if (user != null)
+                            {
+                                users.Add(user);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el listado de usuarios: " + ex.Message);
+            }
+
+            return users;
+        }
+
 
     }
 }

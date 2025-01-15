@@ -36,6 +36,17 @@
             this.txtResultado = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtDominio = new System.Windows.Forms.TextBox();
+            this.txtInformacion = new System.Windows.Forms.TextBox();
+            this.btnListarUsuarios = new System.Windows.Forms.Button();
+            this.gvUsers = new DevExpress.XtraGrid.GridControl();
+            this.viewUsers = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gcAccountName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcDisplayName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcEmail = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcStatus = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gcLastLogon = new DevExpress.XtraGrid.Columns.GridColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.gvUsers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewUsers)).BeginInit();
             this.SuspendLayout();
             // 
             // txtUsuario
@@ -73,7 +84,7 @@
             // 
             // btnValidar
             // 
-            this.btnValidar.Location = new System.Drawing.Point(93, 184);
+            this.btnValidar.Location = new System.Drawing.Point(102, 102);
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(84, 23);
             this.btnValidar.TabIndex = 6;
@@ -83,11 +94,12 @@
             // 
             // txtResultado
             // 
-            this.txtResultado.Location = new System.Drawing.Point(270, 11);
-            this.txtResultado.Multiline = true;
+            this.txtResultado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtResultado.Location = new System.Drawing.Point(274, 11);
             this.txtResultado.Name = "txtResultado";
             this.txtResultado.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtResultado.Size = new System.Drawing.Size(413, 196);
+            this.txtResultado.Size = new System.Drawing.Size(451, 20);
             this.txtResultado.TabIndex = 7;
             // 
             // label3
@@ -108,11 +120,99 @@
             this.txtDominio.TabIndex = 5;
             this.txtDominio.Text = "GRUPOREYES.ORG";
             // 
+            // txtInformacion
+            // 
+            this.txtInformacion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInformacion.Location = new System.Drawing.Point(274, 38);
+            this.txtInformacion.Multiline = true;
+            this.txtInformacion.Name = "txtInformacion";
+            this.txtInformacion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtInformacion.Size = new System.Drawing.Size(451, 125);
+            this.txtInformacion.TabIndex = 8;
+            // 
+            // btnListarUsuarios
+            // 
+            this.btnListarUsuarios.Location = new System.Drawing.Point(25, 194);
+            this.btnListarUsuarios.Name = "btnListarUsuarios";
+            this.btnListarUsuarios.Size = new System.Drawing.Size(93, 23);
+            this.btnListarUsuarios.TabIndex = 9;
+            this.btnListarUsuarios.Text = "Listar Usuarios";
+            this.btnListarUsuarios.UseVisualStyleBackColor = true;
+            this.btnListarUsuarios.Click += new System.EventHandler(this.btnListarUsuarios_Click);
+            // 
+            // gvUsers
+            // 
+            this.gvUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gvUsers.Location = new System.Drawing.Point(128, 194);
+            this.gvUsers.MainView = this.viewUsers;
+            this.gvUsers.Name = "gvUsers";
+            this.gvUsers.Size = new System.Drawing.Size(598, 322);
+            this.gvUsers.TabIndex = 10;
+            this.gvUsers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.viewUsers});
+            // 
+            // viewUsers
+            // 
+            this.viewUsers.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gcAccountName,
+            this.gcDisplayName,
+            this.gcEmail,
+            this.gcStatus,
+            this.gcLastLogon});
+            this.viewUsers.GridControl = this.gvUsers;
+            this.viewUsers.Name = "viewUsers";
+            // 
+            // gcAccountName
+            // 
+            this.gcAccountName.Caption = "Account Name";
+            this.gcAccountName.FieldName = "AccountName";
+            this.gcAccountName.Name = "gcAccountName";
+            this.gcAccountName.Visible = true;
+            this.gcAccountName.VisibleIndex = 0;
+            // 
+            // gcDisplayName
+            // 
+            this.gcDisplayName.Caption = "Display Name";
+            this.gcDisplayName.FieldName = "DisplayName";
+            this.gcDisplayName.Name = "gcDisplayName";
+            this.gcDisplayName.Visible = true;
+            this.gcDisplayName.VisibleIndex = 1;
+            // 
+            // gcEmail
+            // 
+            this.gcEmail.Caption = "Email";
+            this.gcEmail.FieldName = "Email";
+            this.gcEmail.Name = "gcEmail";
+            this.gcEmail.Visible = true;
+            this.gcEmail.VisibleIndex = 2;
+            // 
+            // gcStatus
+            // 
+            this.gcStatus.Caption = "Status";
+            this.gcStatus.FieldName = "Status";
+            this.gcStatus.Name = "gcStatus";
+            this.gcStatus.Visible = true;
+            this.gcStatus.VisibleIndex = 3;
+            // 
+            // gcLastLogon
+            // 
+            this.gcLastLogon.Caption = "LastLogon";
+            this.gcLastLogon.FieldName = "LastLogon";
+            this.gcLastLogon.Name = "gcLastLogon";
+            this.gcLastLogon.Visible = true;
+            this.gcLastLogon.VisibleIndex = 4;
+            // 
             // FrmValidarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(705, 221);
+            this.ClientSize = new System.Drawing.Size(738, 528);
+            this.Controls.Add(this.gvUsers);
+            this.Controls.Add(this.btnListarUsuarios);
+            this.Controls.Add(this.txtInformacion);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtDominio);
             this.Controls.Add(this.txtResultado);
@@ -126,6 +226,8 @@
             this.Name = "FrmValidarUsuario";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Validar Usuario ActiveDirectory";
+            ((System.ComponentModel.ISupportInitialize)(this.gvUsers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.viewUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,6 +243,15 @@
         private System.Windows.Forms.TextBox txtResultado;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtDominio;
+        private System.Windows.Forms.TextBox txtInformacion;
+        private System.Windows.Forms.Button btnListarUsuarios;
+        private DevExpress.XtraGrid.GridControl gvUsers;
+        private DevExpress.XtraGrid.Views.Grid.GridView viewUsers;
+        private DevExpress.XtraGrid.Columns.GridColumn gcAccountName;
+        private DevExpress.XtraGrid.Columns.GridColumn gcDisplayName;
+        private DevExpress.XtraGrid.Columns.GridColumn gcEmail;
+        private DevExpress.XtraGrid.Columns.GridColumn gcStatus;
+        private DevExpress.XtraGrid.Columns.GridColumn gcLastLogon;
     }
 }
 
