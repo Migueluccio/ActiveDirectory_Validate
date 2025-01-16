@@ -18,9 +18,6 @@ namespace ActiveDirectory_Validate
                     // Validate the credentials
                     valido = pc.ValidateCredentials(username, password);
 
-                    //If(valido)
-                    //Obtener Objeto que contenga Usuario, Personal, Sucursal de tengan relacion con el usuario AD validado
-
                     return valido;
                 }
             }
@@ -78,6 +75,39 @@ namespace ActiveDirectory_Validate
 
             return users;
         }
+
+        public static List<UserPrincipal> GetAllUsers(string domain)
+        {
+            List<UserPrincipal> users = new List<UserPrincipal>();
+
+            try
+            {
+
+                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
+                {
+                    UserPrincipal userPrincipal = new UserPrincipal(pc);
+                    using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
+                    {
+                        foreach (var result in searcher.FindAll())
+                        {
+                            UserPrincipal user = result as UserPrincipal;
+                            if (user != null)
+                            {
+                                users.Add(user);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el listado de usuarios: " + ex.Message);
+            }
+
+            return users;
+        }
+
+
 
 
     }

@@ -1,15 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.DirectoryServices.AccountManagement;
-using System.DirectoryServices.ActiveDirectory;
-using System.Drawing;
-using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
@@ -70,9 +63,9 @@ namespace ActiveDirectory_Validate
             string username = txtUsuario.Text;
             string password = txtContraseña.Text;
 
-            List<UserPrincipal> users = ActiveDirectoryHelper.GetAllUsers(domain, username, password);
+            List<UserPrincipal> users = ActiveDirectoryHelper.GetAllUsers(domain);
 
-            if(users != null && users.Count() > 0)
+            if (users != null && users.Count() > 0)
             {
                 DataTable tablaUsers = new DataTable();
                 tablaUsers.Columns.Add(new DataColumn(gcAccountName.FieldName, typeof(string)));
@@ -102,6 +95,9 @@ namespace ActiveDirectory_Validate
                 gvUsers.DataSource = null;
                 gvUsers.ResetBindings();
             }
+
+            var usuario = users.Where(u => u.SamAccountName == "jgrodriguez").FirstOrDefault();
+
 
         }
     }

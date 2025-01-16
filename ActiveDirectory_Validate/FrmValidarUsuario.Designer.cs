@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmValidarUsuario));
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,29 +46,31 @@
             this.gcEmail = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gcStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gcLastLogon = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewUsers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtUsuario
             // 
             this.txtUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtUsuario.Location = new System.Drawing.Point(93, 12);
+            this.txtUsuario.Location = new System.Drawing.Point(231, 12);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(171, 20);
+            this.txtUsuario.Size = new System.Drawing.Size(169, 20);
             this.txtUsuario.TabIndex = 1;
             // 
             // txtContraseña
             // 
-            this.txtContraseña.Location = new System.Drawing.Point(93, 38);
+            this.txtContraseña.Location = new System.Drawing.Point(231, 38);
             this.txtContraseña.Name = "txtContraseña";
-            this.txtContraseña.Size = new System.Drawing.Size(171, 20);
+            this.txtContraseña.Size = new System.Drawing.Size(169, 20);
             this.txtContraseña.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 16);
+            this.label1.Location = new System.Drawing.Point(163, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 0;
@@ -76,7 +79,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 42);
+            this.label2.Location = new System.Drawing.Point(163, 42);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 13);
             this.label2.TabIndex = 2;
@@ -84,7 +87,7 @@
             // 
             // btnValidar
             // 
-            this.btnValidar.Location = new System.Drawing.Point(102, 102);
+            this.btnValidar.Location = new System.Drawing.Point(231, 90);
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(84, 23);
             this.btnValidar.TabIndex = 6;
@@ -96,16 +99,16 @@
             // 
             this.txtResultado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtResultado.Location = new System.Drawing.Point(274, 11);
+            this.txtResultado.Location = new System.Drawing.Point(407, 11);
             this.txtResultado.Name = "txtResultado";
             this.txtResultado.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtResultado.Size = new System.Drawing.Size(451, 20);
+            this.txtResultado.Size = new System.Drawing.Size(525, 20);
             this.txtResultado.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 68);
+            this.label3.Location = new System.Drawing.Point(163, 68);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(48, 13);
             this.label3.TabIndex = 4;
@@ -114,9 +117,9 @@
             // txtDominio
             // 
             this.txtDominio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDominio.Location = new System.Drawing.Point(93, 64);
+            this.txtDominio.Location = new System.Drawing.Point(231, 64);
             this.txtDominio.Name = "txtDominio";
-            this.txtDominio.Size = new System.Drawing.Size(171, 20);
+            this.txtDominio.Size = new System.Drawing.Size(169, 20);
             this.txtDominio.TabIndex = 5;
             this.txtDominio.Text = "GRUPOREYES.ORG";
             // 
@@ -124,16 +127,16 @@
             // 
             this.txtInformacion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInformacion.Location = new System.Drawing.Point(274, 38);
+            this.txtInformacion.Location = new System.Drawing.Point(407, 38);
             this.txtInformacion.Multiline = true;
             this.txtInformacion.Name = "txtInformacion";
             this.txtInformacion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtInformacion.Size = new System.Drawing.Size(451, 125);
+            this.txtInformacion.Size = new System.Drawing.Size(525, 125);
             this.txtInformacion.TabIndex = 8;
             // 
             // btnListarUsuarios
             // 
-            this.btnListarUsuarios.Location = new System.Drawing.Point(25, 194);
+            this.btnListarUsuarios.Location = new System.Drawing.Point(24, 169);
             this.btnListarUsuarios.Name = "btnListarUsuarios";
             this.btnListarUsuarios.Size = new System.Drawing.Size(93, 23);
             this.btnListarUsuarios.TabIndex = 9;
@@ -146,10 +149,10 @@
             this.gvUsers.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gvUsers.Location = new System.Drawing.Point(128, 194);
+            this.gvUsers.Location = new System.Drawing.Point(128, 169);
             this.gvUsers.MainView = this.viewUsers;
             this.gvUsers.Name = "gvUsers";
-            this.gvUsers.Size = new System.Drawing.Size(598, 322);
+            this.gvUsers.Size = new System.Drawing.Size(805, 347);
             this.gvUsers.TabIndex = 10;
             this.gvUsers.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.viewUsers});
@@ -205,11 +208,22 @@
             this.gcLastLogon.Visible = true;
             this.gcLastLogon.VisibleIndex = 4;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ActiveDirectory_Validate.Properties.Resources.ReportReymaBio;
+            this.pictureBox1.Location = new System.Drawing.Point(6, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 95);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 11;
+            this.pictureBox1.TabStop = false;
+            // 
             // FrmValidarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(738, 528);
+            this.ClientSize = new System.Drawing.Size(945, 528);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.gvUsers);
             this.Controls.Add(this.btnListarUsuarios);
             this.Controls.Add(this.txtInformacion);
@@ -221,6 +235,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtContraseña);
             this.Controls.Add(this.txtUsuario);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FrmValidarUsuario";
@@ -228,6 +243,7 @@
             this.Text = "Validar Usuario ActiveDirectory";
             ((System.ComponentModel.ISupportInitialize)(this.gvUsers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewUsers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,6 +268,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gcEmail;
         private DevExpress.XtraGrid.Columns.GridColumn gcStatus;
         private DevExpress.XtraGrid.Columns.GridColumn gcLastLogon;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
