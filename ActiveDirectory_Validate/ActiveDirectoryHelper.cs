@@ -1,25 +1,50 @@
-﻿using System;
+﻿using DevExpress.Data.Mask.Internal;
+using System;
 using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 
 
 namespace ActiveDirectory_Validate
 {
-    public static class ActiveDirectoryHelper
+    public class ActiveDirectoryHelper
     {
-        public static bool ValidateUser(string domain, string username, string password)
+        private readonly PrincipalContext _context;
+
+        public ActiveDirectoryHelper(string domain, string adminUsername, string adminPassword)
+        {
+            _context = new PrincipalContext(ContextType.Domain, domain, adminUsername, adminPassword);
+        }
+
+        public bool ValidateUser(string domain, string username, string password)
         {
             try
             {
                 bool valido = false;
 
-                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
-                {
+                //using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
+                //{
                     // Validate the credentials
-                    valido = pc.ValidateCredentials(username, password);
+                    UserPrincipal user = UserPrincipal.FindByIdentity(_context, username);
 
+                    if(user != null)
+                    {
+                        if (user.IsAccountLockedOut())
+                        {
+                            Console.WriteLine("Usuario Bloqueado");
+                            if (UnlockAccount(username))
+                            {
+                                valido = _context.ValidateCredentials(username, password);
+                            }
+                            //user.UnlockAccount();
+                            //user.Save();
+                        }
+                        else
+                        {
+                        valido = true;
+                        }
+                    }
                     return valido;
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -29,15 +54,12 @@ namespace ActiveDirectory_Validate
             }
         }
 
-        public static UserPrincipal GetUserInformation(string domain, string username, string password)
+        public UserPrincipal GetUserInformation(string username)
         {
             try
             {
-                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain, username, password))
-                {
-                    UserPrincipal user = UserPrincipal.FindByIdentity(pc, username);
-                    return user;
-                }
+                UserPrincipal user = UserPrincipal.FindByIdentity(_context, username);
+                return user;
             }
             catch (Exception ex)
             {
@@ -46,24 +68,48 @@ namespace ActiveDirectory_Validate
             }
         }
 
-        public static List<UserPrincipal> GetAllUsers(string domain, string username, string password)
+        public List<UserPrincipal> GetAllUsers(string domain, string username, string password)
         {
             List<UserPrincipal> users = new List<UserPrincipal>();
 
             try
             {
-                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain, username, password))
+                UserPrincipal userPrincipal = new UserPrincipal(_context);
+                using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
                 {
-                    UserPrincipal userPrincipal = new UserPrincipal(pc);
-                    using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
+                    foreach (var result in searcher.FindAll())
                     {
-                        foreach (var result in searcher.FindAll())
+                        UserPrincipal user = result as UserPrincipal;
+                        if (user != null)
                         {
-                            UserPrincipal user = result as UserPrincipal;
-                            if (user != null)
-                            {
-                                users.Add(user);
-                            }
+                            users.Add(user);
+                        }
+                    }
+                }   
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener el listado de usuarios: " + ex.Message);
+            }
+
+            return users;
+        }
+
+        public List<UserPrincipal> GetAllUsers(string domain)
+        {
+            List<UserPrincipal> users = new List<UserPrincipal>();
+
+            try
+            {
+                UserPrincipal userPrincipal = new UserPrincipal(_context);
+                using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
+                {
+                    foreach (var result in searcher.FindAll())
+                    {
+                        UserPrincipal user = result as UserPrincipal;
+                        if (user != null)
+                        {
+                            users.Add(user);
                         }
                     }
                 }
@@ -76,35 +122,19 @@ namespace ActiveDirectory_Validate
             return users;
         }
 
-        public static List<UserPrincipal> GetAllUsers(string domain)
+        private bool UnlockAccount(string username)
         {
-            List<UserPrincipal> users = new List<UserPrincipal>();
+            bool _state = false;
 
-            try
+            UserPrincipal user = UserPrincipal.FindByIdentity(_context, username);
+            if (user != null && user.IsAccountLockedOut())
             {
-
-                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, domain))
-                {
-                    UserPrincipal userPrincipal = new UserPrincipal(pc);
-                    using (PrincipalSearcher searcher = new PrincipalSearcher(userPrincipal))
-                    {
-                        foreach (var result in searcher.FindAll())
-                        {
-                            UserPrincipal user = result as UserPrincipal;
-                            if (user != null)
-                            {
-                                users.Add(user);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error al obtener el listado de usuarios: " + ex.Message);
+                user.UnlockAccount();
+                user.Save();
+                _state = true;
             }
 
-            return users;
+            return _state;
         }
 
 

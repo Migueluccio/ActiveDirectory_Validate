@@ -1,15 +1,20 @@
-﻿using System;
+﻿using ActiveDirectory_Validate.Properties;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.DirectoryServices.AccountManagement;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Drawing;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ActiveDirectory_Validate
 {
     public partial class FrmValidarUsuario : Form
     {
+        private byte[] _archivoDetalle;
+
         public FrmValidarUsuario()
         {
             InitializeComponent();
@@ -20,17 +25,21 @@ namespace ActiveDirectory_Validate
             try
             {
                 string domain = txtDominio.Text;
+                string usernameAdmin = txtUsuario.Text;
+                string passwordAdmin = txtContraseña.Text;
                 string username = txtUsuario.Text;
                 string password = txtContraseña.Text;
 
-                bool isValid = ActiveDirectoryHelper.ValidateUser(domain, username, password);
+                ActiveDirectoryHelper Adh = new ActiveDirectoryHelper(domain, usernameAdmin, passwordAdmin);
+
+                bool isValid = Adh.ValidateUser(domain, username, password);
 
                 if (isValid)
                 {
                     txtResultado.Text = "Usuario y contraseña válidos.";
                     txtResultado.ForeColor = System.Drawing.Color.Green;
 
-                    UserPrincipal user = ActiveDirectoryHelper.GetUserInformation(domain, username, password);
+                    UserPrincipal user = Adh.GetUserInformation(username);
 
                     if (user != null)
                     {
@@ -60,10 +69,14 @@ namespace ActiveDirectory_Validate
         private void btnListarUsuarios_Click(object sender, EventArgs e)
         {
             string domain = txtDominio.Text;
+            string usernameAdmin = txtAdminUser.Text;
+            string passwordAdmin = txtAdminPassword.Text;
             string username = txtUsuario.Text;
             string password = txtContraseña.Text;
 
-            List<UserPrincipal> users = ActiveDirectoryHelper.GetAllUsers(domain);
+            ActiveDirectoryHelper Adh = new ActiveDirectoryHelper(domain, usernameAdmin, passwordAdmin);
+
+            List<UserPrincipal> users = Adh.GetAllUsers(domain);
 
             if (users != null && users.Count() > 0)
             {
@@ -96,8 +109,33 @@ namespace ActiveDirectory_Validate
                 gvUsers.ResetBindings();
             }
 
-            var usuario = users.Where(u => u.SamAccountName == "jgrodriguez").FirstOrDefault();
 
+
+        }
+
+        private void btnChangeImage_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                {
+                    openFileDialog.Filter = "GIF files (*.gif)|*.gif|All files (*.*)|*.*";
+                    openFileDialog.Title = "Select a GIF file";
+
+                    if (openFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        pictureBox2.Image = System.Drawing.Image.FromFile(openFileDialog.FileName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCambiarContraseña_Click(object sender, EventArgs e)
+        {
 
         }
     }
